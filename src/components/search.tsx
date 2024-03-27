@@ -3,6 +3,7 @@ import {AutoComplete, Button, DatePicker, Form, FormProps, InputNumber, Space} f
 import dayjs from "dayjs";
 import {RangePickerProps} from "antd/es/date-picker";
 import {SearchOutlined} from "@ant-design/icons";
+import {useRouter} from "next/navigation";
 
 
 const {RangePicker} = DatePicker;
@@ -18,11 +19,41 @@ type SearchQuery = {
     numGuests?: number;
 }
 
-const onFinish: FormProps<SearchQuery>["onFinish"] = (values) => {
-    console.log(values)
-}
 
-export default function Search() {
+export default function Search(terms: SearchQuery) {
+   // const searchParams = useSearchParams();
+   // const pathname = usePathname();
+    const { replace } = useRouter();
+
+
+    const handleSearch = (searchParams: SearchQuery) => {
+        const params = new URLSearchParams();
+        const location = searchParams.location
+
+        if (searchParams.location) {
+            params.set('location', searchParams.location);
+        } else {
+            //in case location was already specified delete!
+            params.delete('location')
+        }
+
+        if (searchParams.dates) {
+            params.append('check-in', searchParams.dates[0].format('YYYY-MM-DD'))
+            params.append('check-out', searchParams.dates[1].format('YYYY-MM-DD'))
+        } else {
+            params.delete('check-in')
+            params.delete('check-out')
+        }
+
+        if (searchParams.numGuests) {
+            params.append('guests', searchParams.numGuests.toString())
+        } else {
+            params.delete('guests')
+        }
+
+        replace(`${'/hotels'}?${params.toString()}`);
+    }
+
     const locations = [
         {value: 'toronto'},
         {value: 'vancouver'},
@@ -31,7 +62,7 @@ export default function Search() {
 
 
     return (
-        <Form onFinish={onFinish}>
+        <Form onFinish={handleSearch}>
             <Space.Compact block direction={'horizontal'}>
                 <Form.Item<SearchQuery> name={'location'}>
                     <AutoComplete
