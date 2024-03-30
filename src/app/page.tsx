@@ -11,7 +11,7 @@ export default async function Home() {
   });
 
   return (
-    <div className="w-100 h-100 p-2 overflow-hidden">
+    <div className="flex flex-col w-full h-full p-2 overflow-hidden box-border">
       <Flex
         justify={"space-between"}
         align={"center"} /*style={{backgroundColor: 'lightblue'}}*/
@@ -26,7 +26,7 @@ export default async function Home() {
         <Search />
       </div>
 
-      <div className="flex flex-row flex-wrap gap-2 overflow-y-auto">{hotelCards}</div>
+      <div className="flex flex-row flex-wrap gap-2 overflow-y-auto box-border">{hotelCards}</div>
     </div>
   );
 }
