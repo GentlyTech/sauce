@@ -4,6 +4,7 @@
 // import {signIn} from "@/auth";
 
 import {BaseOptionType} from "rc-select/es/Select";
+import { hostname } from "./constants";
 
 export async function authenticate(_currentState: unknown, formData: FormData) {
     // try {
@@ -50,7 +51,12 @@ export async function getHotelLocations() {
     return cities
 }
 
-
 export async function bookRoom() {
 
+}
+
+export async function getAllHotels(): Promise<Hotel[] | undefined> {
+  const response = await fetch(`${hostname}/hotel/info`);
+  const json: Hotel[] | undefined = await response.json();
+  return json;
 }
