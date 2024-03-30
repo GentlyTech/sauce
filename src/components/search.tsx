@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import {RangePickerProps} from "antd/es/date-picker";
 import {SearchOutlined} from "@ant-design/icons";
 import {useRouter} from "next/navigation";
+import {BaseOptionType} from "rc-select/es/Select";
 
 
 const {RangePicker} = DatePicker;
@@ -20,15 +21,11 @@ type SearchQuery = {
 }
 
 
-export default function Search(terms: SearchQuery) {
-   // const searchParams = useSearchParams();
-   // const pathname = usePathname();
+export default function Search( { locations } : {locations: BaseOptionType[]} ) {
     const { replace } = useRouter();
-
 
     const handleSearch = (searchParams: SearchQuery) => {
         const params = new URLSearchParams();
-        const location = searchParams.location
 
         if (searchParams.location) {
             params.set('location', searchParams.location);
@@ -54,11 +51,12 @@ export default function Search(terms: SearchQuery) {
         replace(`${'/hotels'}?${params.toString()}`);
     }
 
-    const locations = [
-        {value: 'toronto'},
-        {value: 'vancouver'},
-        {value: 'ottawa'},
-        {value: 'new york'}];
+    //make this dynamic!!
+    // const locations = [
+    //     {value: 'toronto'},
+    //     {value: 'vancouver'},
+    //     {value: 'ottawa'},
+    //     {value: 'new york'}];
 
 
     return (
@@ -79,7 +77,7 @@ export default function Search(terms: SearchQuery) {
                 <Form.Item<SearchQuery> name={'dates'}>
                     <RangePicker disabledDate={disabledDate} size={'large'}/>
                 </Form.Item>
-                <Form.Item<SearchQuery> name={'numGuests'}>
+                <Form.Item<SearchQuery> name={'numGuests'} initialValue={1}>
                     <InputNumber
                         addonBefore={'Guests'}
                         size={'large'}

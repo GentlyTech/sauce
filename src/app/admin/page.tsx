@@ -7,11 +7,23 @@ export default function Page() {
             title: "Name"
         },
         {
+            title: "Address"
+        },
+        {
+            title: "id type"
+        },
+        {
+            title: "check in date"
+        },
+        {
+            title: "check out date"
+        },
+        {
             title: "Booking Status"
         }
     ]
 
-    return(
+    return (
         <>
             <h1>Staff dashboard</h1>
             <Table columns={columns}/>

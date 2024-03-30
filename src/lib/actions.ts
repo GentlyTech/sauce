@@ -3,6 +3,8 @@
 
 // import {signIn} from "@/auth";
 
+import {BaseOptionType} from "rc-select/es/Select";
+
 export async function authenticate(_currentState: unknown, formData: FormData) {
     // try {
     //     await signIn('credentials', formData)
@@ -17,4 +19,33 @@ export async function authenticate(_currentState: unknown, formData: FormData) {
     //     }
     //     throw error
     // }
+}
+
+export default async function getByHotelChain(chainName : string) {
+    const res = await fetch(`http://localhost:8080/hotel/info/byChain/${chainName}`);
+    return res.json()
+}
+
+export async function getHotelChains() {
+    const res =  await fetch("http://localhost:8080/hotelChain/info/chainNames")
+    const resJson  = await res.json()
+    const chainNames = [];
+
+    for (let i = 0; i < resJson.length; i++) {
+        chainNames.push({value: resJson[i].chainName})
+    }
+
+    return chainNames
+}
+
+export async function getHotelLocations() {
+    const res = await fetch("http://localhost:8080/hotel/info/cities")
+    const resJson = await res.json()
+    const cities : BaseOptionType[] = [];
+
+    for (let i = 0; i < resJson.length; i++) {
+        cities.push({value: resJson[i]})
+    }
+
+    return cities
 }
