@@ -1,8 +1,15 @@
 import CustomCard from "@/components/custom-card";
 import Search from "@/components/search";
+import { GetAllHotels } from "@/lib/data";
 import { Button, Flex, Layout } from "antd";
 
-export default function Home() {
+export default async function Home() {
+  const hotels = await GetAllHotels();
+
+  const hotelCards = hotels?.map((hotel, index) => {
+    return <CustomCard key={hotel.hotelId} title={hotel.hotelName} subtitle="" body={`${hotel.address.street}, ${hotel.address.city}, ${hotel.address.province} ${hotel.address.postalCode}, ${hotel.address.country}`} img="" />;
+  });
+
   return (
     <div className="w-100 h-100 p-2 overflow-hidden">
       <Flex
@@ -19,11 +26,7 @@ export default function Home() {
         <Search />
       </div>
 
-      <div className="flex flex-row gap-2">
-        <CustomCard title="SomeHotel" body="Blah blah" img="" />
-        <CustomCard title="SomeHotel" body="Blah blah" img="" />
-        <CustomCard title="SomeHotel" body="Blah blah" img="" />
-      </div>
+      <div className="flex flex-row flex-wrap gap-2 overflow-y-auto">{hotelCards}</div>
     </div>
   );
 }
