@@ -4,7 +4,7 @@ import { Button, Flex, Layout } from "antd";
 
 export default function Home() {
   return (
-    <div className="w-100 h-100">
+    <div className="w-100 h-100 p-2 overflow-hidden">
       <Flex
         justify={"space-between"}
         align={"center"} /*style={{backgroundColor: 'lightblue'}}*/
