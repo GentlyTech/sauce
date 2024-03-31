@@ -6,8 +6,6 @@ import {getHotelChains, getHotelLocations} from "@/lib/actions";
 
 
 export default async function Page(){
-
-
     return(
         <>
             <h1>results...</h1>

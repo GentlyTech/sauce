@@ -49,3 +49,8 @@ export async function getHotelLocations() {
 
     return cities
 }
+
+
+export async function bookRoom() {
+
+}
