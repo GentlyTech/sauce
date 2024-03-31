@@ -20,6 +20,7 @@ type SearchQuery = {
     location?: string;
     dates?: any;
     numGuests?: number;
+    hotelChain?: string;
 }
 
 export default function Filters({hotelChains, locations}: { hotelChains: BaseOptionType[], locations: BaseOptionType[]}) {
@@ -48,6 +49,12 @@ export default function Filters({hotelChains, locations}: { hotelChains: BaseOpt
             params.append('guests', searchParams.numGuests.toString())
         } else {
             params.delete('guests')
+        }
+
+        if (searchParams.hotelChain) {
+            params.append('hotelChain', searchParams.hotelChain.toString())
+        } else {
+            params.delete('hotelChain')
         }
 
         replace(`${'/hotels'}?${params.toString()}`);
@@ -95,7 +102,7 @@ export default function Filters({hotelChains, locations}: { hotelChains: BaseOpt
                             max={1000}
                             defaultValue={[0, 1000]}/>
                 </Form.Item>
-                <Form.Item>
+                <Form.Item<SearchQuery> name={'hotelChain'}>
                     <Select
                         allowClear
                         style={{width: '100%'}}
