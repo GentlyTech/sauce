@@ -32,6 +32,12 @@ export default async function getByHotelChain(chainName: string) {
   }
 }
 
+export async function getRoomsByLocation(city : string) {
+    const res = await fetch(`http://localhost:8080/hotel/info/byChain/${city}`);
+    return res.json()
+}
+
+
 export async function getHotelChains() {
   const chainNames = [];
 
@@ -70,8 +76,6 @@ export async function getHotelLocations() {
   return cities;
 }
 
-export async function bookRoom() {}
-
 export async function getAllHotels(): Promise<Hotel[] | undefined> {
   let hotels: Hotel[] = [];
 
@@ -84,4 +88,16 @@ export async function getAllHotels(): Promise<Hotel[] | undefined> {
   }
 
   return hotels;
+}
+
+export async function getBookingsFromHotel(hotelId: number) {
+
+}
+
+export async function getRoomsAvailableInHotel(hotelId: number){
+    return await fetch(`http://localhost:8080/room/info/${hotelId}`)
+}
+
+export async function bookRoom(roomNumber: number, hotelId: number, customerId: number) {
+    //TODO do this
 }

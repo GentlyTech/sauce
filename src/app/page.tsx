@@ -1,7 +1,11 @@
 import CustomCard from "@/components/custom-card";
 import Search from "@/components/search";
-import { Button, Flex } from "antd";
 import { getAllHotels, getHotelLocations } from "@/lib/actions";
+import {Button, Flex, Layout} from "antd";
+import {BaseOptionType} from "rc-select/es/Select";
+import {getHotelChains} from "@/lib/actions";
+import BookingForm from "@/components/booking-form";
+
 
 export default async function Home() {
   const hotels = await getAllHotels();

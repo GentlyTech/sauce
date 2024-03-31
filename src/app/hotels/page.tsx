@@ -1,11 +1,18 @@
 import Filters from "@/components/filters";
 import {useSearchParams} from "next/navigation";
 import {BaseOptionType} from "rc-select/es/Select";
-import {getHotelChains, getHotelLocations} from "@/lib/actions";
+import {getHotelChains, getHotelLocations, getRoomsAvailableInHotel, getRoomsByLocation} from "@/lib/actions";
+
 
 
 
 export default async function Page(){
+
+    let hotels = [];
+
+    hotels.push(await getRoomsAvailableInHotel(1));
+
+
     return(
         <>
             <h1>results...</h1>
