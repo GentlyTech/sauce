@@ -24,8 +24,8 @@ export async function authenticate(_currentState: unknown, formData: FormData) {
 export default async function getByHotelChain(chainName: string) {
   try {
     const res = await fetch(`${hostname}/hotel/info/byChain/${chainName}`);
-    if (!res.ok) return null;
-    return res.json();
+    if (!res.ok) return undefined;
+    return await res.json();
   } catch (error) {
     console.error(error);
     return undefined;
@@ -33,17 +33,18 @@ export default async function getByHotelChain(chainName: string) {
 }
 
 export async function getHotelChains() {
-  const chainNames = [];
+  const chainNames: BaseOptionType[] = [];
 
   try {
     const res = await fetch(`${hostname}/hotelChain/info/chainNames`);
     if (!res.ok) return [];
 
-    const resJson = await res.json();
+    const json: string[] = await res.json();
 
-    for (let i = 0; i < resJson.length; i++) {
-      chainNames.push({ value: resJson[i].chainName });
+    for (let i = 0; i < json.length; i++) {
+      chainNames.push({ value: json[i] });
     }
+
   } catch (error) {
     console.error(error);
   }
@@ -84,8 +85,10 @@ export async function getAllHotels(): Promise<Hotel[] | undefined> {
   return hotels;
 }
 
-export async function queryRooms(query?: RoomQuery): Promise<Room[]> {
-  let rooms: Room[] = [];
+export async function queryRooms(
+  query?: RoomQuery
+): Promise<RoomQueryResult[]> {
+  let results: RoomQueryResult[] = [];
   if (query == null) {
     query = {
       price: null,
@@ -107,13 +110,13 @@ export async function queryRooms(query?: RoomQuery): Promise<Room[]> {
       },
       body: JSON.stringify(query),
     });
-    if (!res.ok) return rooms;
-    rooms = await res.json();
+    if (!res.ok) return results;
+    results = await res.json();
   } catch (error) {
     console.error(error);
   }
 
-  return rooms;
+  return results;
 }
 
 export async function getBookingsFromHotel(hotelId: number) {}

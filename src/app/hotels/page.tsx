@@ -2,7 +2,7 @@
 
 import Filters from "@/components/filters";
 import { getHotelChains, getHotelLocations, queryRooms } from "@/lib/actions";
-import CustomCard, { RoomCard } from "@/components/custom-card";
+import CustomCard from "@/components/custom-card";
 import { useEffect, useState } from "react";
 import { BaseOptionType } from "antd/es/select";
 
@@ -12,7 +12,7 @@ export default function Page() {
   const [searchParams, setSearchParams] = useState(
     null as unknown as RoomQuery | undefined
   );
-  const [rooms, setRooms] = useState([] as Room[]);
+  const [searchResults, setSearchResults] = useState([] as RoomQueryResult[]);
 
   const updateSearchParams = async (searchParams?: RoomQuery) => {
     setSearchParams(searchParams);
@@ -21,17 +21,18 @@ export default function Page() {
   useEffect(() => {
     getHotelLocations().then((data) => setLocations(data));
     getHotelChains().then((data) => setHotelChains(data));
-    queryRooms(searchParams).then((data) => setRooms(data));
+    queryRooms(searchParams).then((data) => setSearchResults(data));
   }, [searchParams]);
 
-  const hotelCards = rooms!.map((room, index) => {
+  const hotelCards = searchResults!.map((result, index) => {
+    const { room, hotel } = result;
     return (
       <CustomCard
         key={index}
-        title={String(room.roomNumber)}
-        subtitle={`$${String(room.price)}`}
+        title={`${hotel.hotelName}`}
+        subtitle={`$${String(room.price)} for Room ${String(room.roomNumber)}`}
         body={`${room.viewType} for ${room.capacity} (${
-          room.extendable ? "extendable" : "not extendable"
+            room.extendable ? "extendable" : "not extendable"
         })`}
         img=""
       />
