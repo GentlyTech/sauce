@@ -15,56 +15,15 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
     return current < dayjs().subtract(1, 'day');
 };
 
-
-type SearchQuery = {
-    location?: string;
-    dates?: any;
-    numGuests?: number;
-    hotelChain?: string;
-}
-
-export default function Filters({hotelChains, locations}: { hotelChains: BaseOptionType[], locations: BaseOptionType[]}) {
-    const {replace} = useRouter();
-    const [location, setLocation] = useState(useSearchParams()!.get('location'))
-
-    const handleSearch = (searchParams: SearchQuery) => {
-        const params = new URLSearchParams();
-
-        if (searchParams.location) {
-            params.set('location', searchParams.location);
-        } else {
-            //in case location was already specified delete!
-            params.delete('location')
-        }
-
-        if (searchParams.dates) {
-            params.append('check-in', searchParams.dates[0].format('YYYY-MM-DD'))
-            params.append('check-out', searchParams.dates[1].format('YYYY-MM-DD'))
-        } else {
-            params.delete('check-in')
-            params.delete('check-out')
-        }
-
-        if (searchParams.numGuests) {
-            params.append('guests', searchParams.numGuests.toString())
-        } else {
-            params.delete('guests')
-        }
-
-        if (searchParams.hotelChain) {
-            params.append('hotelChain', searchParams.hotelChain.toString())
-        } else {
-            params.delete('hotelChain')
-        }
-
-        replace(`${'/hotels'}?${params.toString()}`);
+export default function Filters({hotelChains, locations, onSubmit}: { hotelChains: BaseOptionType[], locations: BaseOptionType[], onSubmit?: (searchParams?: RoomQuery) => void}) {
+    const handleSearch = (searchParams: RoomQuery) => {
+        if (onSubmit != null) onSubmit(searchParams);
     }
-
 
     return (
         <Form onFinish={handleSearch}>
             <Space direction={'vertical'}>
-                <Form.Item<SearchQuery> name={'location'} initialValue={useSearchParams()!.get('location')}>
+                <Form.Item<RoomQuery> name={'location'} initialValue={useSearchParams()!.get('location')}>
                     <AutoComplete
                         options={locations}
                         filterOption={(inputValue, option) => {
@@ -75,11 +34,10 @@ export default function Filters({hotelChains, locations}: { hotelChains: BaseOpt
                         placeholder={'Search locations!'}>
                     </AutoComplete>
                 </Form.Item>
-                <Form.Item<SearchQuery> name={'dates'}
-                                        initialValue={[dayjs(useSearchParams()!.get('check-in')), dayjs(useSearchParams()!.get('check-out'))]}>
+                <Form.Item<RoomQuery> name={"checkInDate"}>
                     <RangePicker disabledDate={disabledDate}/>
                 </Form.Item>
-                <Form.Item<SearchQuery> name={'numGuests'} initialValue={useSearchParams()!.get('guests')}>
+                <Form.Item<RoomQuery> name={'capacity'}>
                     <InputNumber
                         addonBefore={'Guests'}
                         min={'1'}
@@ -102,7 +60,7 @@ export default function Filters({hotelChains, locations}: { hotelChains: BaseOpt
                             max={1000}
                             defaultValue={[0, 1000]}/>
                 </Form.Item>
-                <Form.Item<SearchQuery> name={'hotelChain'}>
+                <Form.Item<RoomQuery> name={'chainName'}>
                     <Select
                         allowClear
                         style={{width: '100%'}}

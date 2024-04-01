@@ -22,7 +22,7 @@ type SearchQuery = {
 
 
 export default function Search( { locations } : {locations: BaseOptionType[]} ) {
-    const { replace } = useRouter();
+    const { push } = useRouter();
 
     const handleSearch = (searchParams: SearchQuery) => {
         const params = new URLSearchParams();
@@ -35,20 +35,20 @@ export default function Search( { locations } : {locations: BaseOptionType[]} ) 
         }
 
         if (searchParams.dates) {
-            params.append('check-in', searchParams.dates[0].format('YYYY-MM-DD'))
-            params.append('check-out', searchParams.dates[1].format('YYYY-MM-DD'))
+            params.append('checkInDate', searchParams.dates[0].format('YYYY-MM-DD'))
+            params.append('checkOutDate', searchParams.dates[1].format('YYYY-MM-DD'))
         } else {
-            params.delete('check-in')
-            params.delete('check-out')
+            params.delete('checkInDate')
+            params.delete('checkOutDate')
         }
 
         if (searchParams.numGuests) {
-            params.append('guests', searchParams.numGuests.toString())
+            params.append('capacity', searchParams.numGuests.toString())
         } else {
-            params.delete('guests')
+            params.delete('capacity')
         }
 
-        replace(`${'/hotels'}?${params.toString()}`);
+        push(`${'/hotels'}?${params.toString()}`);
     }
 
     //make this dynamic!!
