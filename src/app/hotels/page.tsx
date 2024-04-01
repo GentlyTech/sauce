@@ -29,6 +29,10 @@ export default async function Page({searchParams}: { searchParams: { [key: strin
         console.log(searchParams.guests)
         let roomsByCapacity = await getRoomsByCapacity(parseInt(searchParams.guests))
 
+        rooms = rooms?.filter((room) => {
+            return roomsByCapacity?.includes(room)
+        })
+
 
         //get just filter by capacity
         // rooms = rooms?.filter((room) => {
