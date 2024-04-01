@@ -122,6 +122,33 @@ export async function getRoomsAvailableInHotelChain(chainName: String): Promise<
     return rooms
 }
 
+export async function getRoomsByCity(city: String): Promise<Room[] | undefined> {
+    let rooms: Room[] = []
+
+    try {
+        let res = await fetch(`http://localhost:8080/room/info/byCity/${city}`)
+        if (!res.ok) return undefined;
+        rooms = await res.json()
+    } catch (e) {
+        console.log(e)
+    }
+    return rooms
+}
+
+
+export async function getRoomsByCapacity(capacity: number): Promise<Room[] | undefined> {
+    let rooms: Room[] = []
+
+    try {
+        let res = await fetch(`http://localhost:8080/room/info/byCapacity/${capacity}`)
+        if (!res.ok) return undefined;
+        rooms = await res.json()
+    } catch (e) {
+        console.log(e)
+    }
+    return rooms
+}
+
 export async function bookRoom(roomNumber: number, hotelId: number, customerId: number) {
     //TODO do this
 }
