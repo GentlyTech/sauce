@@ -39,8 +39,8 @@ export default function Page() {
   });
 
   return (
-    <div className="flex flex-row w-full h-full p-2 overflow-hidden box-border">
-      <div className="flex flex-col mr-5">
+    <div className="flex flex-row w-full h-full overflow-hidden box-border">
+      <div className="flex flex-col mx-5">
         <h1>Room Search</h1>
         <Filters
           locations={locations}
@@ -48,7 +48,7 @@ export default function Page() {
           onSubmit={updateSearchParams}
         />
       </div>
-      <div className="flex flex-row flex-wrap gap-2 overflow-y-auto box-border">
+      <div className="flex flex-row flex-wrap gap-2 overflow-y-auto box-border my-5">
         {hotelCards}
       </div>
     </div>
