@@ -25,13 +25,23 @@ export default function Page() {
   }, [searchParams]);
 
   const hotelCards = rooms!.map((room, index) => {
-    return <CustomCard key={index} title={String(room.roomNumber)} subtitle={`$${String(room.price)}`} body={`${room.viewType} for ${room.capacity} (${room.extendable ? "extendable" : "not extendable"})`} img="" />;
+    return (
+      <CustomCard
+        key={index}
+        title={String(room.roomNumber)}
+        subtitle={`$${String(room.price)}`}
+        body={`${room.viewType} for ${room.capacity} (${
+          room.extendable ? "extendable" : "not extendable"
+        })`}
+        img=""
+      />
+    );
   });
 
   return (
-    <div className="flex flex-col w-full h-full p-2 overflow-hidden box-border">
-      <h1>Results</h1>
-      <div className={"flex col"}>
+    <div className="flex flex-row w-full h-full p-2 overflow-hidden box-border">
+      <div className="flex flex-col mr-5">
+        <h1>Room Search</h1>
         <Filters
           locations={locations}
           hotelChains={hotelChains}
