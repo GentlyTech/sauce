@@ -5,6 +5,7 @@ import { getHotelChains, getHotelLocations, queryRooms } from "@/lib/actions";
 import CustomCard from "@/components/custom-card";
 import { useEffect, useState } from "react";
 import { BaseOptionType } from "antd/es/select";
+import { hostname } from "@/lib/constants";
 
 export default function Page() {
   const [locations, setLocations] = useState([] as BaseOptionType[]);
@@ -21,11 +22,13 @@ export default function Page() {
   useEffect(() => {
     getHotelLocations().then((data) => setLocations(data));
     getHotelChains().then((data) => setHotelChains(data));
-    queryRooms(searchParams).then((data) => setSearchResults(data));
+    queryRooms(searchParams).then((data) => setSearchResults(data));    
   }, [searchParams]);
 
   const hotelCards = searchResults!.map((result, index) => {
     const { room, hotel } = result;
+    const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
+
     return (
       <CustomCard
         key={index}
@@ -34,9 +37,8 @@ export default function Page() {
         subtitle={`$${String(room.price)}`}
         body={`${room.viewType} for ${room.capacity} (${
             room.extendable ? "extendable" : "not extendable"
-        })`
-      }
-        img=""
+        })`}
+        img={thumbnailUrl}
       />
     );
   });
