@@ -7,6 +7,7 @@ import {useRouter, useSearchParams} from "next/navigation";
 import {useState} from "react";
 import {BaseOptionType} from "rc-select/es/Select";
 import {Base} from "postcss-selector-parser";
+import {queryRooms} from "@/lib/actions";
 
 
 const {RangePicker} = DatePicker;
@@ -15,15 +16,98 @@ const disabledDate: RangePickerProps['disabledDate'] = (current) => {
     return current < dayjs().subtract(1, 'day');
 };
 
-export default function Filters({hotelChains, locations, onSubmit}: { hotelChains: BaseOptionType[], locations: BaseOptionType[], onSubmit?: (searchParams?: RoomQuery) => void}) {
-    const handleSearch = (searchParams: RoomQuery) => {
-        if (onSubmit != null) onSubmit(searchParams);
+export default function Filters({hotelChains, locations, onSubmit}: {
+    hotelChains: BaseOptionType[],
+    locations: BaseOptionType[],
+    onSubmit?: (searchParams?: RoomQuery) => void
+}) {
+
+    const {push} = useRouter();
+    type FormResults = {
+        location?: string;
+        chainName?: string;
+        dates?: any
+        priceRange?: number[];
+        rating?: number;
+        capacity?: number;
+    }
+
+    const handleSearch = (search: FormResults) => {
+
+
+        const searchParams = new URLSearchParams();
+        let searchQuery: RoomQuery = {
+            price: null,
+            chainName: null,
+            checkInDate: null,
+            checkOutDate: null,
+            hotelName: null,
+            location: null,
+            rating: null,
+            capacity: null
+        };
+
+
+        if (search.location) {
+            searchParams.set('location', search.location);
+            searchQuery.location = search.location
+
+        } else {
+            searchParams.delete('location')
+        }
+
+        if (search.chainName) {
+            searchParams.set('chainName', search.chainName)
+            searchQuery.chainName = search.chainName
+        } else {
+            searchParams.delete('chainName')
+        }
+
+        if (search.dates) {
+            searchParams.append('checkInDate', search.dates[0].format('YYYY-MM-DD'))
+            searchParams.append('checkOutDate', search.dates[1].format('YYYY-MM-DD'))
+
+            searchQuery.checkInDate = search.dates[0].format('YYYY-MM-DD')
+            searchQuery.checkOutDate = search.dates[0].format('YYYY-MM-DD')
+
+        } else {
+            searchParams.delete('checkInDate')
+            searchParams.delete('checkOutDate')
+        }
+
+        if (search.priceRange) {
+            searchParams.append('minPrice', search.priceRange[0].toString())
+            searchParams.append('maxPrice', search.priceRange[1].toString())
+
+            searchQuery.price = search.priceRange[0]
+        } else {
+            searchParams.delete('minPrice')
+            searchParams.delete('maxPrice')
+        }
+
+        if (search.rating) {
+            searchParams.append('rating', search.rating.toString())
+            searchQuery.rating = search.rating
+        } else {
+            searchParams.delete('rating')
+        }
+
+        if (search.capacity) {
+            searchParams.append('capacity', search.capacity.toString())
+            searchQuery.capacity = search.capacity
+        } else {
+            searchParams.delete('capacity')
+        }
+
+        // console.log(searchQuery)
+        //push(`${'/hotels'}?${searchParams}`)
+        if (onSubmit != null) onSubmit(searchQuery);
     }
 
     return (
         <Form onFinish={handleSearch}>
             <Space direction={'vertical'}>
-                <Form.Item<RoomQuery> name={'location'} initialValue={useSearchParams()!.get('location')}>
+                <Form.Item<FormResults> name={'location'} initialValue={useSearchParams()!.get('location')}>
                     <AutoComplete
                         options={locations}
                         filterOption={(inputValue, option) => {
@@ -34,7 +118,7 @@ export default function Filters({hotelChains, locations, onSubmit}: { hotelChain
                         placeholder={'Destination'}>
                     </AutoComplete>
                 </Form.Item>
-                <Form.Item<RoomQuery> name={'chainName'} initialValue={null}>
+                <Form.Item<FormResults> name={'chainName'} initialValue={null}>
                     <Select
                         allowClear
                         style={{width: '100%'}}
@@ -43,23 +127,26 @@ export default function Filters({hotelChains, locations, onSubmit}: { hotelChain
                         options={hotelChains}
                     />
                 </Form.Item>
-                <Form.Item<RoomQuery> name={"checkInDate"} initialValue={null}>
+                <Form.Item<FormResults> name={"dates"} initialValue={null}>
                     <RangePicker disabledDate={disabledDate}/>
                 </Form.Item>
-                <Form.Item<RoomQuery> name={'capacity'} initialValue={null}>
+                <Form.Item<FormResults> name={'capacity'} initialValue={null}>
                     <InputNumber
                         addonBefore={'Guests'}
                         min={'1'}
                     />
                 </Form.Item>
-                <Form.Item<RoomQuery> name={'price'} label={'price range'} initialValue={null}>
+                <Form.Item<FormResults> name={'priceRange'} label={'price range'} initialValue={null}>
                     <Slider range
                             min={0}
                             max={1000}
                             defaultValue={[0, 1000]}/>
                 </Form.Item>
-                <Form.Item<RoomQuery> name={'rating'} initialValue={null}>
-                    <Select placeholder={'rating'} options={[{value: "1", label: "1 Star"}, {value: "2", label: "2 Star"}, {value: "3", label: "3 Star"}, {value: "4", label: "4 Star"}, {value: "5", label: "5 Star"}]}/>
+                <Form.Item<FormResults> name={'rating'} initialValue={null}>
+                    <Select placeholder={'rating'} options={[{value: 1, label: "1 Star"}, {value: 2, label: "2 Star"}, {
+                        value: 3,
+                        label: "3 Star"
+                    }, {value: 4, label: "4 Star"}, {value: 5, label: "5 Star"}]}/>
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" icon={<SearchOutlined/>} htmlType={'submit'}>
