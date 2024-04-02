@@ -1,4 +1,4 @@
-import {Card} from "antd";
+import {Card, Rate} from "antd";
 import Image from "next/image";
 import {useEffect, useState} from "react";
 
@@ -8,6 +8,7 @@ export default function CustomCard(props: CardProps) {
             <Image className="w-100" alt="Preview of a hotel or hotel room" src={props.img}/>
             <h2 className="w-100">{props.title}</h2>
             <h3 className="w-100">{props.subtitle}</h3>
+            <Rate disabled defaultValue={props.rating}/>
             <p className="w-100">{props.body}</p>
         </Card>
     );
@@ -16,6 +17,7 @@ export default function CustomCard(props: CardProps) {
 interface CardProps {
     title: string;
     body: string;
+    rating: number
     subtitle: string;
     img: string;
 }

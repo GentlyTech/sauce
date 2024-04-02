@@ -29,11 +29,13 @@ export default function Page() {
     return (
       <CustomCard
         key={index}
+        rating={hotel.rating}
         title={`${hotel.hotelName}`}
         subtitle={`$${String(room.price)}`}
         body={`${room.viewType} for ${room.capacity} (${
             room.extendable ? "extendable" : "not extendable"
-        })`}
+        })`
+      }
         img=""
       />
     );
