@@ -37,7 +37,7 @@ export default function Filters({hotelChains, locations, onSubmit}: {
 
         const searchParams = new URLSearchParams();
         let searchQuery: RoomQuery = {
-            price: null,
+            priceRange: null,
             chainName: null,
             checkInDate: null,
             checkOutDate: null,
