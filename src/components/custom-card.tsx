@@ -14,8 +14,9 @@ export default function CustomCard(props: CardProps) {
         },
       }}
     >
-      <Image className="filter blur-sm brightness-75" alt="Preview of a hotel or hotel room" fill src={imgSrc} />
-      <div className="flex flex-col relative w-full p-6 box-border">
+      <Image alt="Preview of a hotel or hotel room" fill src={imgSrc} />
+      <div className="absolute w-full h-full bg-gray-800 opacity-50" />
+      <div className="flex flex-col relative w-full p-6 box-border text-white">
         <h2 className="w-full">{props.title}</h2>
         <h3 className="w-full">{props.subtitle}</h3>
         {props.rating != null ? <Rate disabled defaultValue={props.rating}/> : null}
