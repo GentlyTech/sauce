@@ -91,7 +91,7 @@ export async function queryRooms(
   let results: RoomQueryResult[] = [];
   if (query == null) {
     query = {
-      price: null,
+      priceRange: null,
       chainName: null,
       checkInDate: null,
       checkOutDate: null,

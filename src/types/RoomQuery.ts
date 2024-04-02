@@ -1,5 +1,5 @@
 interface RoomQuery {
-  price: number | null;
+  priceRange: number[] | null;
   chainName: string | null;
   checkInDate: string | null;
   checkOutDate: string | null;

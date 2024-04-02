@@ -79,7 +79,7 @@ export default function Filters({hotelChains, locations, onSubmit}: {
             searchParams.append('minPrice', search.priceRange[0].toString())
             searchParams.append('maxPrice', search.priceRange[1].toString())
 
-            searchQuery.price = search.priceRange[0]
+            searchQuery.priceRange = search.priceRange
         } else {
             searchParams.delete('minPrice')
             searchParams.delete('maxPrice')
