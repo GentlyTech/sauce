@@ -31,8 +31,17 @@ export default function Filters({hotelChains, locations, onSubmit}: { hotelChain
                             return option!.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                         }}
                         style={{width: 200}}
-                        placeholder={'Search locations!'}>
+                        placeholder={'Destination'}>
                     </AutoComplete>
+                </Form.Item>
+                <Form.Item<RoomQuery> name={'chainName'}>
+                    <Select
+                        allowClear
+                        style={{width: '100%'}}
+                        placeholder="Hotel Chain"
+                        // onChange={handleChange}
+                        options={hotelChains}
+                    />
                 </Form.Item>
                 <Form.Item<RoomQuery> name={"checkInDate"}>
                     <RangePicker disabledDate={disabledDate}/>
@@ -43,31 +52,11 @@ export default function Filters({hotelChains, locations, onSubmit}: { hotelChain
                         min={'1'}
                     />
                 </Form.Item>
-                <Form.Item>
-                    <Select
-                        mode="multiple"
-                        allowClear
-                        style={{width: '100%'}}
-                        placeholder="Please select"
-                        defaultValue={['renting', 'booking']}
-                        // onChange={handleChange}
-                        // options={options}
-                    />
-                </Form.Item>
                 <Form.Item label={'price range'}>
                     <Slider range
                             min={0}
                             max={1000}
                             defaultValue={[0, 1000]}/>
-                </Form.Item>
-                <Form.Item<RoomQuery> name={'chainName'}>
-                    <Select
-                        allowClear
-                        style={{width: '100%'}}
-                        placeholder="Select hotel chain"
-                        // onChange={handleChange}
-                        options={hotelChains}
-                    />
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" icon={<SearchOutlined/>} htmlType={'submit'}>
