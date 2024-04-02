@@ -110,6 +110,7 @@ export async function queryRooms(
       },
       body: JSON.stringify(query),
     });
+    console.log(query)
     if (!res.ok) return results;
     results = await res.json();
   } catch (error) {

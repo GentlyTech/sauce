@@ -34,7 +34,7 @@ export default function Filters({hotelChains, locations, onSubmit}: { hotelChain
                         placeholder={'Destination'}>
                     </AutoComplete>
                 </Form.Item>
-                <Form.Item<RoomQuery> name={'chainName'}>
+                <Form.Item<RoomQuery> name={'chainName'} initialValue={null}>
                     <Select
                         allowClear
                         style={{width: '100%'}}
@@ -43,20 +43,23 @@ export default function Filters({hotelChains, locations, onSubmit}: { hotelChain
                         options={hotelChains}
                     />
                 </Form.Item>
-                <Form.Item<RoomQuery> name={"checkInDate"}>
+                <Form.Item<RoomQuery> name={"checkInDate"} initialValue={null}>
                     <RangePicker disabledDate={disabledDate}/>
                 </Form.Item>
-                <Form.Item<RoomQuery> name={'capacity'}>
+                <Form.Item<RoomQuery> name={'capacity'} initialValue={null}>
                     <InputNumber
                         addonBefore={'Guests'}
                         min={'1'}
                     />
                 </Form.Item>
-                <Form.Item label={'price range'}>
+                <Form.Item<RoomQuery> name={'price'} label={'price range'} initialValue={null}>
                     <Slider range
                             min={0}
                             max={1000}
                             defaultValue={[0, 1000]}/>
+                </Form.Item>
+                <Form.Item<RoomQuery> name={'rating'} initialValue={null}>
+                    <Select placeholder={'rating'} options={[{value: "1", label: "1 Star"}, {value: "2", label: "2 Star"}, {value: "3", label: "3 Star"}, {value: "4", label: "4 Star"}, {value: "5", label: "5 Star"}]}/>
                 </Form.Item>
                 <Form.Item>
                     <Button type="primary" icon={<SearchOutlined/>} htmlType={'submit'}>
