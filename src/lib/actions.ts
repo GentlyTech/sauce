@@ -21,7 +21,7 @@ export async function authenticate(_currentState: unknown, formData: FormData) {
   // }
 }
 
-export default async function getByHotelChain(chainName: string) {
+export async function getByHotelChain(chainName: string) {
   try {
     const res = await fetch(`${hostname}/hotel/info/byChain/${chainName}`);
     if (!res.ok) return undefined;
