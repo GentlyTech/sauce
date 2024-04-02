@@ -136,11 +136,11 @@ export default function Filters({hotelChains, locations, onSubmit}: {
                         min={'1'}
                     />
                 </Form.Item>
-                <Form.Item<FormResults> name={'priceRange'} label={'price range'} initialValue={null}>
+                <Form.Item<FormResults> name={'priceRange'} label={'price range'} initialValue={[0, 1000]}>
                     <Slider range
                             min={0}
                             max={1000}
-                            defaultValue={[0, 1000]}/>
+                            />
                 </Form.Item>
                 <Form.Item<FormResults> name={'rating'} initialValue={null}>
                     <Select placeholder={'rating'} options={[{value: 1, label: "1 Star"}, {value: 2, label: "2 Star"}, {
