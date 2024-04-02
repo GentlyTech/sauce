@@ -17,6 +17,7 @@ export default async function Home() {
         key={hotel.hotelId}
         title={hotel.hotelName}
         subtitle=""
+        rating={hotel.rating}
         body={`${hotel.address.street}, ${hotel.address.city}, ${hotel.address.province} ${hotel.address.postalCode}, ${hotel.address.country}`}
         img=""
       />
