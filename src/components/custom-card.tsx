@@ -13,19 +13,6 @@ export default function CustomCard(props: CardProps) {
     );
 }
 
-export function RoomCard({room}: { room: Room }) {
-    return (
-        <Card className={"flex flex-col w-64"}>
-            <h1>
-                {room.hotelId}
-            </h1>
-            <p>Capacity: {room.capacity}</p>
-            <p>Price: {room.price} per night</p>
-        </Card>
-    )
-}
-
-
 interface CardProps {
     title: string;
     body: string;
