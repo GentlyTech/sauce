@@ -30,7 +30,7 @@ export default function Page() {
       <CustomCard
         key={index}
         title={`${hotel.hotelName}`}
-        subtitle={`$${String(room.price)} for Room ${String(room.roomNumber)}`}
+        subtitle={`$${String(room.price)}`}
         body={`${room.viewType} for ${room.capacity} (${
             room.extendable ? "extendable" : "not extendable"
         })`}
