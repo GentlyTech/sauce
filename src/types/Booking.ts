@@ -3,7 +3,7 @@ interface Booking {
     customerId: number
     hotelId: number
     bookingStatus: string
-    checkInDate: Date
-    checkOutDate: Date
+    checkInDate: string
+    checkOutDate: string
     damageFee: number
 }

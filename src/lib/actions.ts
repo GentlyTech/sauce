@@ -4,6 +4,7 @@
 
 import { BaseOptionType } from "rc-select/es/Select";
 import { hostname } from "./constants";
+import {ok} from "node:assert";
 
 export async function authenticate(_currentState: unknown, formData: FormData) {
   // try {
@@ -193,14 +194,27 @@ export async function getRoomsByCapacity(
 }
 
 export async function bookRoom(
-  roomNumber: number,
-  hotelId: number,
-  customerId: number
+    booking: Booking
 ) {
   //TODO do this
+  try {
+    let res = await fetch(`${hostname}/booking/book`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(booking)
+    })
+  } catch (e) {
+    console.log(e)
+  }
+  console.log(JSON.stringify(booking))
 }
 
 export async function registerUser(user: string){
+
+  let result: number = -1;
+
   try {
     let res = await fetch(`${hostname}/customer/register`, {
       method: "POST",
@@ -209,7 +223,14 @@ export async function registerUser(user: string){
       },
       body: user
     })
+
+    if (!res.ok) return result;
+    result = await res.json();
+
   } catch (e) {
     console.log(e)
   }
+
+  return result;
 }
+

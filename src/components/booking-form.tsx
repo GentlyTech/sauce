@@ -1,9 +1,9 @@
 import {Button, Form, FormProps, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useFormState} from 'react-dom';
-import {registerUser} from "@/lib/actions";
+import {bookRoom, registerUser} from "@/lib/actions";
 
-export default function BookingForm({room}: { room: Room }) {
+export default function BookingForm({room, checkInDate, checkOutDate}: { room: Room, checkInDate: string, checkOutDate: string }) {
 
     const onFinish: FormProps["onFinish"] = (values) => {
         // registerUser(values.firstName, values.lastName, values.idType, values.address)
@@ -19,7 +19,21 @@ export default function BookingForm({room}: { room: Room }) {
             }
         })
 
-        registerUser(formRes)
+
+
+        registerUser(formRes).then((res) =>  {
+            let booking: Booking = {
+                roomNumber: room.roomNumber,
+                customerId: res,
+                hotelId: room.hotelId,
+                bookingStatus: "booked",
+                checkInDate: checkInDate,
+                checkOutDate: checkOutDate,
+                damageFee: 0
+            }
+            console.log(booking)
+            bookRoom(booking)
+        })
     }
 
 

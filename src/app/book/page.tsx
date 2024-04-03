@@ -1,5 +1,6 @@
 'use client'
 import BookingForm from "@/components/booking-form";
+import dayjs from "dayjs";
 export default function Page({searchParams}: {
     searchParams: {
         hotel: string
@@ -24,7 +25,7 @@ export default function Page({searchParams}: {
             <p><b>Room number:</b> {room.roomNumber}</p>
             <p><b>Check in date: </b>{searchParams.checkIn}</p>
             <p><b>Check out date: </b>{searchParams.checkOut}</p>
-            <BookingForm room={room}/>
+            <BookingForm room={room} checkInDate={searchParams.checkIn} checkOutDate={searchParams.checkOut}/>
         </div>
     )
 }
