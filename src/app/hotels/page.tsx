@@ -42,7 +42,7 @@ export default async function Page(
         chainName: searchParams?.chainName!,
         checkInDate: searchParams?.checkInDate!,
         checkOutDate: searchParams?.checkInDate!,
-        hotelName: searchParams?.chainName!,
+        hotelName: null,
         location: searchParams?.location!,
         rating: searchParams?.rating!,
         capacity: searchParams?.capacity!,

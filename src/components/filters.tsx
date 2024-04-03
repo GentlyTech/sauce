@@ -90,7 +90,7 @@ export default function Filters(
     return (
         <Form onFinish={handleSearch}>
             <Space direction={'vertical'}>
-                <Form.Item<FormResults> name={'location'} initialValue={useSearchParams()!.get('location')}>
+                <Form.Item<FormResults> name={'location'} initialValue={useSearchParams()?.get('location')}>
                     <AutoComplete
                         options={locations}
                         filterOption={(inputValue, option) => {
@@ -101,7 +101,7 @@ export default function Filters(
                         placeholder={'Destination'}>
                     </AutoComplete>
                 </Form.Item>
-                <Form.Item<FormResults> name={'chainName'} initialValue={null}>
+                <Form.Item<FormResults> name={'chainName'}>
                     <Select
                         allowClear
                         style={{width: '100%'}}
