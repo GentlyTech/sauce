@@ -51,13 +51,6 @@ export default function Search( { locations } : {locations: BaseOptionType[]} ) 
         push(`${'/hotels'}?${params.toString()}`);
     }
 
-    //make this dynamic!!
-    // const locations = [
-    //     {value: 'toronto'},
-    //     {value: 'vancouver'},
-    //     {value: 'ottawa'},
-    //     {value: 'new york'}];
-
 
     return (
         <Form onFinish={handleSearch}>
@@ -74,7 +67,7 @@ export default function Search( { locations } : {locations: BaseOptionType[]} ) 
                         placeholder={'Search locations!'}>
                     </AutoComplete>
                 </Form.Item>
-                <Form.Item<SearchQuery> name={'dates'}>
+                <Form.Item<SearchQuery> name={'dates'} rules={[{ required: true, message: 'Please input a date range!' }]}>
                     <RangePicker disabledDate={disabledDate} size={'large'}/>
                 </Form.Item>
                 <Form.Item<SearchQuery> name={'numGuests'} initialValue={1}>

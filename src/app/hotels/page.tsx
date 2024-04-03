@@ -53,6 +53,10 @@ export default async function Page(
                     room.extendable ? "extendable" : "not extendable"
                 })`}
                 img={thumbnailUrl}
+                hotel={hotel}
+                room={room}
+                checkInDate={searchParams?.checkInDate}
+                checkOutDate={searchParams?.checkOutDate}
             />
         );
     });

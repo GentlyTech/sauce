@@ -110,7 +110,7 @@ export default function Filters(
                         options={ hotelChains}
                     />
                 </Form.Item>
-                <Form.Item<FormResults> name={"dates"} initialValue={null}>
+                <Form.Item<FormResults> name={"dates"} initialValue={[dayjs(useSearchParams().get('checkInDate')), dayjs(useSearchParams().get('checkOutDate'))] } rules={[{ required: true, message: 'Please input a date range!' }]}>
                     <RangePicker disabledDate={disabledDate}/>
                 </Form.Item>
                 <Form.Item<FormResults> name={'capacity'} initialValue={useSearchParams().get('capacity')}>

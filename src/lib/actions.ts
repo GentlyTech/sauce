@@ -199,3 +199,17 @@ export async function bookRoom(
 ) {
   //TODO do this
 }
+
+export async function registerUser(user: string){
+  try {
+    let res = await fetch(`${hostname}/customer/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: user
+    })
+  } catch (e) {
+    console.log(e)
+  }
+}
