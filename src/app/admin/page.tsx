@@ -1,32 +1,44 @@
 import {Table} from "antd";
+import {hostname} from "@/lib/constants";
+import {SearchOutlined} from "@ant-design/icons";
 
-export default function Page() {
+export default async function Page() {
+
+    const dataSource = await fetch(`${hostname}/booking/getDetailed/hotelId/2`)
+    const data = await dataSource.json()
 
     const columns = [
         {
-            title: "Name"
+            title: "Name",
+            dataIndex: "customerName",
+            filterIcon: <SearchOutlined/>,
+            filterSearch: true
+        },
+        // {
+        //     title: "Address"
+        // },
+        {
+            title: "id type",
+            dataIndex: "idType"
         },
         {
-            title: "Address"
+            title: "check in date",
+            dataIndex: "checkInDate"
         },
         {
-            title: "id type"
+            title: "check out date",
+            dataIndex: "checkOutDate"
         },
         {
-            title: "check in date"
-        },
-        {
-            title: "check out date"
-        },
-        {
-            title: "Booking Status"
+            title: "Booking Status",
+            dataIndex: "bookingStatus"
         }
     ]
 
     return (
         <>
             <h1>Staff dashboard</h1>
-            <Table columns={columns}/>
+            <Table columns={columns} dataSource={data}/>
         </>
     );
 }
