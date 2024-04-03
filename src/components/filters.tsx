@@ -113,19 +113,19 @@ export default function Filters(
                 <Form.Item<FormResults> name={"dates"} initialValue={null}>
                     <RangePicker disabledDate={disabledDate}/>
                 </Form.Item>
-                <Form.Item<FormResults> name={'capacity'} initialValue={null}>
+                <Form.Item<FormResults> name={'capacity'} initialValue={useSearchParams().get('capacity')}>
                     <InputNumber
                         addonBefore={'Guests'}
                         min={'1'}
                     />
                 </Form.Item>
-                <Form.Item<FormResults> name={'priceRange'} label={'price range'} initialValue={[0, 1000]}>
+                <Form.Item<FormResults> name={'priceRange'} label={'price range'} initialValue={[0, 2000]}>
                     <Slider range
                             min={0}
-                            max={1000}
+                            max={2000}
                     />
                 </Form.Item>
-                <Form.Item<FormResults> name={'rating'} initialValue={null}>
+                <Form.Item<FormResults> name={'rating'} initialValue={useSearchParams().get('rating')}>
                     <Select placeholder={'rating'} options={[{value: 1, label: "1 Star"}, {value: 2, label: "2 Star"}, {
                         value: 3,
                         label: "3 Star"
