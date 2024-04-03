@@ -32,7 +32,7 @@ export default function BookingForm({room, checkInDate, checkOutDate}: { room: R
                 damageFee: 0
             }
             console.log(booking)
-            bookRoom(booking)
+            bookRoom(booking).then((res) => alert("Successfully booked!"))
         })
     }
 
@@ -43,33 +43,47 @@ export default function BookingForm({room, checkInDate, checkOutDate}: { room: R
                 {/*Name inputs*/}
                 <Form.Item<string>
                     label={'First Name'}
-                    name={'firstName'}>
+                    name={'firstName'}
+                    rules={[{ required: true, message: 'Please input your first name' }]}
+                >
+
                     <Input/>
                 </Form.Item>
                 <Form.Item<string>
                     label={'Last Name'}
-                    name={'lastName'}>
+                    name={'lastName'}
+                    rules={[{ required: true, message: 'Please input your last name' }]}
+                >
                     <Input/>
                 </Form.Item>
                 <Form.Item<string>
                     label={'id type'}
-                    name={'idType'}>
+                    name={'idType'}
+                    rules={[{ required: true, message: 'Please input your identification method' }]}
+                >
                     <Input/>
                 </Form.Item>
                 {/*Address inputs*/}
-                <Form.Item<Address> label={'Street'} name={'street'}>
+                <Form.Item<Address> label={'Street'} name={'street'}
+                                    rules={[{ required: true, message: 'Please input your street' }]}
+                >
                     <Input/>
                 </Form.Item>
-                <Form.Item<Address> label={'City'} name={'city'}>
+                <Form.Item<Address> label={'City'} name={'city'}
+                                    rules={[{ required: true, message: 'Please input your city' }]}>
                     <Input/>
                 </Form.Item>
-                <Form.Item<Address> label={'Province'} name={'province'}>
+                <Form.Item<Address> label={'Province'} name={'province'}
+                                    rules={[{ required: true, message: 'Please input your province/state' }]}
+                >
                     <Input/>
                 </Form.Item>
-                <Form.Item<Address> label={'Postal code'} name={'postalCode'}>
+                <Form.Item<Address> label={'Postal code'} name={'postalCode'}
+                                    rules={[{ required: true, message: 'Please input your postal/zip code' }]}>
                     <Input/>
                 </Form.Item>
-                <Form.Item<Address> label={'Country'} name={'country'}>
+                <Form.Item<Address> label={'Country'} name={'country'}
+                                    rules={[{ required: true, message: 'Please input your country' }]}>
                     <Input/>
                 </Form.Item>
                 <Form.Item>
