@@ -55,7 +55,7 @@ export default async function Page(
     const hotelCards = searchResults!.map((result, index) => {
         const {room, hotel} = result;
         const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
-
+        console.log(hotel.rating)
         return (
             <CustomCard
                 key={index}
