@@ -6,19 +6,6 @@ import {hostname} from "@/lib/constants";
 import {useSearchParams} from "next/navigation";
 
 
-
-let searchQuery: RoomQuery = {
-    priceRange: null,
-    chainName: null,
-    checkInDate: null,
-    checkOutDate: null,
-    hotelName: null,
-    location: null,
-    rating: null,
-    capacity: null
-};
-
-
 export default async function Page(
     {
         searchParams
@@ -38,7 +25,7 @@ export default async function Page(
     // console.log(searchParams?.locations)
 
     let searchQuery: RoomQuery = {
-        priceRange: [0, 10000],
+        priceRange: [searchParams?.minPrice!, searchParams?.maxPrice!],
         chainName: searchParams?.chainName!,
         checkInDate: searchParams?.checkInDate!,
         checkOutDate: searchParams?.checkInDate!,
