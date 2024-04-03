@@ -39,10 +39,10 @@ export async function getHotelChains() {
     const res = await fetch(`${hostname}/hotelChain/info/chainNames`);
     if (!res.ok) return [];
 
-    const json: string[] = await res.json();
+    const json = await res.json();
 
     for (let i = 0; i < json.length; i++) {
-      chainNames.push({ value: json[i] });
+      chainNames.push({ value: json[i].chainName });
     }
 
   } catch (error) {
