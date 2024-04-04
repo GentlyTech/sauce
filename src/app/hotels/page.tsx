@@ -1,6 +1,11 @@
 "use client";
 import Filters from "@/components/filters";
-import { countRooms, getHotelChains, getHotelLocations, queryRooms } from "@/lib/actions";
+import {
+  countRooms,
+  getHotelChains,
+  getHotelLocations,
+  queryRooms,
+} from "@/lib/actions";
 import CustomCard from "@/components/custom-card";
 import { hostname } from "@/lib/constants";
 import { Pagination } from "antd";
@@ -46,7 +51,7 @@ export default function Page({
     getHotelLocations().then((data) => setLocations(data));
     getHotelChains().then((data) => setHotelChains(data));
     countRooms(searchQuery).then((count) => {
-        setExpectedResultCount(count);
+      setExpectedResultCount(count);
     });
     queryRooms(searchQuery, undefined, (page - 1) * PAGE_SIZE).then((data) =>
       setSearchResults(data)
@@ -94,11 +99,14 @@ export default function Page({
         <h1>Room Search</h1>
         <Filters locations={locations} hotelChains={hotelChains} />
       </div>
-      <div className="flex flex-col items-center my-5 w-fill gap-2">
-        <div className="flex flex-row flex-wrap gap-2 overflow-y-auto box-border w-fill">
+      <div className="flex flex-col items-center my-5 w-full gap-2">
+        <div className="flex flex-row flex-wrap gap-2 overflow-y-auto w-full">
           {hotelCards}
         </div>
         <Pagination
+          style={{
+            marginTop: "auto",
+          }}
           total={expectedResultCount}
           pageSize={PAGE_SIZE}
           showSizeChanger={false}
