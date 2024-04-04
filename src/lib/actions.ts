@@ -2,7 +2,7 @@
 
 // import {signIn} from "@/auth";
 
-import {BaseOptionType} from "rc-select/es/Select";
+import {BaseOptionType} from "antd/es/select";
 import {hostname} from "./constants";
 import {ok} from "node:assert";
 import {json} from "node:stream/consumers";
@@ -121,7 +121,7 @@ export async function queryRooms(
             },
             body: JSON.stringify(query),
         });
-        console.log(query)
+
         if (!res.ok) return results;
         results = await res.json();
     } catch (error) {
@@ -129,6 +129,42 @@ export async function queryRooms(
     }
 
     return results;
+}
+
+export async function countRooms(
+    query?: RoomQuery
+): Promise<number> {
+    let count = 0;
+
+    if (query == null) {
+        query = {
+            priceRange: null,
+            chainName: null,
+            checkInDate: null,
+            checkOutDate: null,
+            hotelName: null,
+            location: null,
+            rating: null,
+            capacity: null,
+        };
+    }
+
+    try {
+        const res = await fetch(`${hostname}/room/query/count`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(query),
+        });
+
+        if (!res.ok) return count;
+        count = await res.json();
+    } catch (error) {
+        console.error(error);
+    }
+
+    return count;
 }
 
 export async function getBookingsFromHotel(hotelId: number) {
