@@ -4,6 +4,7 @@ import CustomCard from "@/components/custom-card";
 import {BaseOptionType} from "antd/es/select";
 import {hostname} from "@/lib/constants";
 import {useSearchParams} from "next/navigation";
+import './page.css';
 
 
 export default async function Page(
@@ -57,6 +58,7 @@ export default async function Page(
                 room={room}
                 checkInDate={searchParams?.checkInDate}
                 checkOutDate={searchParams?.checkOutDate}
+                bookingStatus={"booked"}
             />
         );
     });

@@ -7,4 +7,5 @@ interface RoomQuery {
   location: string | null;
   rating: number | null;
   capacity: number | null;
+  hotelId: number | null;
 }

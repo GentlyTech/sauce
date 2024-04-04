@@ -1,10 +1,9 @@
 'use client';
 import React, {useState} from 'react'
 import {Table, Tag} from "antd";
-import {hostname} from "@/lib/constants";
 import {SearchOutlined} from "@ant-design/icons";
-import {id, tag} from "postcss-selector-parser";
 import {updateBookingStatus} from "@/lib/actions";
+import dayjs from "dayjs";
 
 
 export default function BookingTable(data: any[]) {
@@ -34,6 +33,19 @@ export default function BookingTable(data: any[]) {
         {
             title: "check out date",
             dataIndex: "checkOutDate"
+        },
+        {
+            title: "price",
+            dataIndex: "price",
+            render: (price: number, record: any[]) => (
+                <p>
+                    {(price * dayjs(record.checkOutDate).diff(record.checkInDate, 'day')).toFixed(2)}
+                </p>
+            ),
+        },
+        {
+            title: "damage fee",
+            dataIndex: "damageFee",
         },
         {
             title: "Room Number",
@@ -76,7 +88,6 @@ export default function BookingTable(data: any[]) {
 
     return (
         <>
-            <h1>Staff dashboard</h1>
             <Table columns={columns} dataSource={data.data}/>
         </>
     );

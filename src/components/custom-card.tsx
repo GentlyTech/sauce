@@ -18,6 +18,7 @@ export default function CustomCard(props: CardProps) {
           params.set('room', JSON.stringify(props.room));
           params.set('checkIn', props.checkInDate!)
           params.set('checkOut', props.checkOutDate!)
+          params.set('bookingStatus', props.bookingStatus!)
           console.log('checkIn')
           push(`${'/book'}?${params.toString()}`);
       }}
@@ -50,4 +51,5 @@ interface CardProps {
   room?: Room;
   checkInDate?: string;
   checkOutDate?: string;
+  bookingStatus?: string;
 }

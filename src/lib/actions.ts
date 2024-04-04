@@ -1,27 +1,7 @@
 "use server";
-
-// import {signIn} from "@/auth";
-
 import {BaseOptionType} from "rc-select/es/Select";
 import {hostname} from "./constants";
-import {ok} from "node:assert";
-import {json} from "node:stream/consumers";
 
-export async function authenticate(_currentState: unknown, formData: FormData) {
-    // try {
-    //     await signIn('credentials', formData)
-    // } catch (error) {
-    //     if (error) {
-    //         switch (error.type) {
-    //             case 'CredentialsSignin':
-    //                 return 'Invalid credentials.'
-    //             default:
-    //                 return 'Something went wrong.'
-    //         }
-    //     }
-    //     throw error
-    // }
-}
 
 export async function getByHotelChain(chainName: string) {
     try {
@@ -206,6 +186,7 @@ export async function bookRoom(
             },
             body: JSON.stringify(booking)
         })
+        return res.ok
     } catch (e) {
         console.log(e)
     }
@@ -255,4 +236,18 @@ export async function updateBookingStatus(booking: Booking, newStatus: string) {
     } catch (e) {
         console.log(e)
     }
+}
+
+
+export async function login(hotelId: string, sin: string) {
+    try {
+        let res = await fetch(`${hostname}/employee/info/login/${hotelId}/${sin}`);
+        let login = await res.json()
+        console.log(login)
+        if (!res.ok) return false
+        return login !== null
+    } catch (e) {
+        console.log(e)
+    }
+    return false
 }
