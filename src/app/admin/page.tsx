@@ -1,44 +1,16 @@
-import {Table} from "antd";
+"use server";
+import React from 'react'
+import {Table, Tag} from "antd";
 import {hostname} from "@/lib/constants";
 import {SearchOutlined} from "@ant-design/icons";
+import {tag} from "postcss-selector-parser";
+import BookingTable from "@/components/BookingTable";
+import {headers} from "next/headers";
 
 export default async function Page() {
-
-    const dataSource = await fetch(`${hostname}/booking/getDetailed/hotelId/2`)
+    //was cacheing data so api calls where not always up to date. no-cache ensures it does not cache data.
+    const dataSource = await fetch(`${hostname}/booking/getDetailed/hotelId/26`, {headers: {'Cache-Control':'no-cache'}})
     const data = await dataSource.json()
-
-    const columns = [
-        {
-            title: "Name",
-            dataIndex: "customerName",
-            filterIcon: <SearchOutlined/>,
-            filterSearch: true
-        },
-        // {
-        //     title: "Address"
-        // },
-        {
-            title: "id type",
-            dataIndex: "idType"
-        },
-        {
-            title: "check in date",
-            dataIndex: "checkInDate"
-        },
-        {
-            title: "check out date",
-            dataIndex: "checkOutDate"
-        },
-        {
-            title: "Booking Status",
-            dataIndex: "bookingStatus"
-        }
-    ]
-
-    return (
-        <>
-            <h1>Staff dashboard</h1>
-            <Table columns={columns} dataSource={data}/>
-        </>
-    );
+    return <BookingTable data={data}/>
 }
+

@@ -19,8 +19,6 @@ export default function BookingForm({room, checkInDate, checkOutDate}: { room: R
             }
         })
 
-
-
         registerUser(formRes).then((res) =>  {
             let booking: Booking = {
                 roomNumber: room.roomNumber,
