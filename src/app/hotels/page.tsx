@@ -1,3 +1,4 @@
+"use client";
 import Filters from "@/components/filters";
 import {getHotelChains, getHotelLocations, queryRooms} from "@/lib/actions";
 import CustomCard from "@/components/custom-card";
