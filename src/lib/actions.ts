@@ -88,9 +88,10 @@ export async function getAllHotels(): Promise<Hotel[] | undefined> {
 }
 
 export async function queryRooms(
-    query?: RoomQuery
+    query?: RoomQuery, limit?: number, offset?: number
 ): Promise<RoomQueryResult[]> {
     let results: RoomQueryResult[] = [];
+
     if (query == null) {
         query = {
             priceRange: null,
@@ -104,8 +105,16 @@ export async function queryRooms(
         };
     }
 
+    if (limit == null) {
+        limit = 100; // probably shouldn't hardcode it here but eh
+    }
+
+    if (offset == null) {
+        offset = 0;
+    }
+
     try {
-        const res = await fetch(`${hostname}/room/query`, {
+        const res = await fetch(`${hostname}/room/query?limit=${limit}&offset=${offset}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
