@@ -51,7 +51,7 @@ export default function Page() {
 
   const hotelCards = availableRooms!.map((result, index) => {
     const { room, hotel } = result;
-    const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
+    const thumbnailUrl = `${hostname}/thumbnail/room/${hotel.hotelId}`;
 
     const onCardClick: DisplayCardProps["onClick"] = (router) => {
       const params = new URLSearchParams();
