@@ -1,6 +1,7 @@
 import DisplayCard from "@/components/DisplayCard";
 import Search from "@/components/Search";
 import { getAllHotels, getHotelLocations } from "@/lib/actions";
+import { hostname } from "@/lib/constants";
 import {Button, Flex, Layout} from "antd";
 
 
@@ -9,6 +10,8 @@ export default async function Home() {
   let locations = await getHotelLocations();
 
   const hotelCards = hotels?.map((hotel, index) => {
+    const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
+
     return (
       <DisplayCard
         key={hotel.hotelId}
@@ -16,7 +19,7 @@ export default async function Home() {
         subtitle=""
         rating={hotel.rating}
         body={`${hotel.address.street}, ${hotel.address.city}, ${hotel.address.province} ${hotel.address.postalCode}, ${hotel.address.country}`}
-        img=""
+        img={thumbnailUrl}
       />
     );
   });
