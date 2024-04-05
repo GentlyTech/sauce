@@ -68,7 +68,7 @@ export async function getAllHotels(): Promise<Hotel[] | undefined> {
 }
 
 export async function queryRooms(
-    query?: RoomQuery, limit?: number, offset?: number
+    query?: RoomQuery
 ): Promise<RoomQueryResult[]> {
     let results: RoomQueryResult[] = [];
 
@@ -82,19 +82,12 @@ export async function queryRooms(
             location: null,
             rating: null,
             capacity: null,
+            hotelId: null
         };
     }
 
-    if (limit == null) {
-        limit = 100; // probably shouldn't hardcode it here but eh
-    }
-
-    if (offset == null) {
-        offset = 0;
-    }
-
     try {
-        const res = await fetch(`${hostname}/room/query?limit=${limit}&offset=${offset}`, {
+        const res = await fetch(`${hostname}/room/query`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -241,7 +234,6 @@ export async function bookRoom(
 export async function registerUser(user: string) {
 
     let result: number = -1;
-
     try {
         let res = await fetch(`${hostname}/customer/register`, {
             method: "POST",
