@@ -1,7 +1,8 @@
-import {Button, Form, FormProps, Input} from "antd";
+import {Button, Dropdown, Form, FormProps, Input, Select} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {useFormState} from 'react-dom';
 import {bookRoom, registerUser} from "@/lib/actions";
+import './styles.css'
 
 export default function BookingForm({room, checkInDate, checkOutDate, bookingStatus}: {
     room: Room,
@@ -63,7 +64,7 @@ export default function BookingForm({room, checkInDate, checkOutDate, bookingSta
                     name={'idType'}
                     rules={[{required: true, message: 'Please input your identification method'}]}
                 >
-                    <Input/>
+                    <Select options={[{value: 'Passport', label: 'Passport'}, {value: 'Drivers Licence', label: 'Drivers licence'}, {value: 'ssn', label: 'ssn/sin'}]}/>
                 </Form.Item>
                 {/*Address inputs*/}
                 <Form.Item<Address> label={'Street'} name={'street'}

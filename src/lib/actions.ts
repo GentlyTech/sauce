@@ -225,10 +225,13 @@ export async function bookRoom(
             },
             body: JSON.stringify(booking)
         })
+
+        return res.ok
     } catch (e) {
         console.log(e)
     }
     console.log(JSON.stringify(booking))
+    return false;
 }
 
 export async function registerUser(user: string) {
