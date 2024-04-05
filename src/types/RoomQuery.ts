@@ -1,11 +1,11 @@
 interface RoomQuery {
-  priceRange: number[] | null;
-  chainName: string | null;
-  checkInDate: string | null;
-  checkOutDate: string | null;
-  hotelName: string | null;
-  location: string | null;
-  rating: number | null;
-  capacity: number | null;
-  hotelId: number | null;
+  priceRange?: number[];
+  chainName?: string;
+  checkInDate?: string;
+  checkOutDate?: string;
+  hotelName?: string;
+  location?: string;
+  rating?: number;
+  capacity?: number;
+  hotelId?: number;
 }

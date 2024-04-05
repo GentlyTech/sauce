@@ -2,33 +2,27 @@
 import {Button, Form, FormProps, Input} from "antd";
 import {LockOutlined, UserOutlined} from "@ant-design/icons";
 import {login} from "@/lib/actions";
-import {redirect} from "next/navigation";
 import { useRouter } from 'next/navigation'
 
-export default function LoginForm() {
+export default function AuthForm() {
     const router = useRouter()
 
-    type UserLogin = {
-        hotelId?: string;
-        sin?: string;
-    }
-
-    const onFinish: FormProps<UserLogin>["onFinish"] = (values) => {
+    const onFinish: FormProps<AuthFormFields>["onFinish"] = (values) => {
         console.log(values)
-        login(values.hotelId!, values.sin!).then((res) => res ? router.push(`admin/${values.hotelId}`) : alert("login failed"))
+        login(values.username!, values.password!).then((res) => res ? router.push(`admin/${values.username}`) : alert("login failed"))
     }
 
     return (
         <Form onFinish={onFinish}>
-            <Form.Item<UserLogin>
+            <Form.Item<AuthFormFields>
                 label={'Username (hotel id)'}
-                name={'hotelId'}
+                name={'username'}
             >
                 <Input prefix={<UserOutlined className="site-form-item-icon" />}/>
             </Form.Item>
-            <Form.Item<UserLogin>
+            <Form.Item<AuthFormFields>
                 label={'Password (sin/ssn)'}
-                name={'sin'}
+                name={'password'}
             >
                 <Input.Password prefix={<LockOutlined className="site-form-item-icon" />}/>
             </Form.Item>

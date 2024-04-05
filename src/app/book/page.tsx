@@ -1,5 +1,5 @@
 'use client'
-import BookingForm from "@/components/booking-form";
+import BookingForm from "@/components/BookingForm";
 import dayjs from "dayjs";
 
 export default function Page({searchParams}: {

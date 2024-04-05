@@ -4,7 +4,7 @@ import {hostname} from "@/lib/constants";
 import {PlusCircleOutlined} from "@ant-design/icons";
 import BookingTable from "@/components/BookingTable";
 import {queryRooms} from "@/lib/actions";
-import CustomCard from "@/components/custom-card";
+import DisplayCard from "@/components/DisplayCard";
 import dayjs from "dayjs";
 import './page.css'
 
@@ -36,7 +36,7 @@ export default async function Page({params}: {hotelId: string}) {
         const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
         console.log(hotel.rating)
         return (
-            <CustomCard
+            <DisplayCard
                 key={index}
                 rating={hotel.rating}
                 title={`${hotel.hotelName}: room: ${room.roomNumber}`}

@@ -72,20 +72,6 @@ export async function queryRooms(
 ): Promise<RoomQueryResult[]> {
     let results: RoomQueryResult[] = [];
 
-    if (query == null) {
-        query = {
-            priceRange: null,
-            chainName: null,
-            checkInDate: null,
-            checkOutDate: null,
-            hotelName: null,
-            location: null,
-            rating: null,
-            capacity: null,
-            hotelId: null
-        };
-    }
-
     if (limit == null) {
         limit = 100; // probably shouldn't hardcode it here but eh
     }
@@ -117,20 +103,6 @@ export async function countRooms(
 ): Promise<number> {
     let count = 0;
 
-    if (query == null) {
-        query = {
-            priceRange: null,
-            chainName: null,
-            checkInDate: null,
-            checkOutDate: null,
-            hotelName: null,
-            location: null,
-            rating: null,
-            capacity: null,
-            hotelId: null
-        };
-    }
-
     try {
         const res = await fetch(`${hostname}/room/query/count`, {
             method: "POST",
@@ -158,7 +130,7 @@ export async function getRoomsAvailableInHotel(
     let rooms: Room[] = [];
 
     try {
-        let res = await fetch(`http://localhost:8080/room/info/${hotelId}`);
+        let res = await fetch(`${hostname}/room/info/${hotelId}`);
         if (!res.ok) return undefined;
         let roomsJson = await res.json();
 
@@ -180,7 +152,7 @@ export async function getRoomsAvailableInHotelChain(
 
     try {
         let res = await fetch(
-            `http://localhost:8080/room/info/byChain/${chainName}`
+            `${hostname}/room/info/byChain/${chainName}`
         );
         if (!res.ok) return undefined;
         rooms = await res.json();
@@ -196,7 +168,7 @@ export async function getRoomsByCity(
     let rooms: Room[] = [];
 
     try {
-        let res = await fetch(`http://localhost:8080/room/info/byCity/${city}`);
+        let res = await fetch(`${hostname}/room/info/byCity/${city}`);
         if (!res.ok) return undefined;
         rooms = await res.json();
     } catch (e) {
@@ -212,7 +184,7 @@ export async function getRoomsByCapacity(
 
     try {
         let res = await fetch(
-            `http://localhost:8080/room/info/byCapacity/${capacity}`
+            `${hostname}/room/info/byCapacity/${capacity}`
         );
         if (!res.ok) return undefined;
         rooms = await res.json();

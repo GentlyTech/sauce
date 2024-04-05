@@ -1,5 +1,5 @@
-import CustomCard from "@/components/custom-card";
-import Search from "@/components/search";
+import DisplayCard from "@/components/DisplayCard";
+import Search from "@/components/Search";
 import { getAllHotels, getHotelLocations } from "@/lib/actions";
 import {Button, Flex, Layout} from "antd";
 
@@ -10,7 +10,7 @@ export default async function Home() {
 
   const hotelCards = hotels?.map((hotel, index) => {
     return (
-      <CustomCard
+      <DisplayCard
         key={hotel.hotelId}
         title={hotel.hotelName}
         subtitle=""

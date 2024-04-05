@@ -1,12 +1,12 @@
 "use client";
-import Filters from "@/components/filters";
+import Filters from "@/components/Filters";
 import {
   countRooms,
   getHotelChains,
   getHotelLocations,
   queryRooms,
 } from "@/lib/actions";
-import CustomCard from "@/components/custom-card";
+import DisplayCard, { DisplayCardProps } from "@/components/DisplayCard";
 import { BaseOptionType } from "antd/es/select";
 import { hostname } from "@/lib/constants";
 import "./page.css";
@@ -30,6 +30,7 @@ export default function Page({
     hotelId?: number;
   };
 }) {
+
   const [locations, setLocations] = useState([] as BaseOptionType[]);
   const [hotelChains, setHotelChains] = useState([] as BaseOptionType[]);
   const [searchResults, setSearchResults] = useState([] as RoomQueryResult[]);
@@ -42,7 +43,6 @@ export default function Page({
       chainName: searchParams?.chainName!,
       checkInDate: searchParams?.checkInDate!,
       checkOutDate: searchParams?.checkInDate!,
-      hotelName: null,
       location: searchParams?.location!,
       rating: searchParams?.rating!,
       capacity: searchParams?.capacity!,
@@ -76,9 +76,19 @@ export default function Page({
   const hotelCards = searchResults!.map((result, index) => {
     const { room, hotel } = result;
     const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
-    console.log(hotel.rating);
+    
+    const onCardClick: DisplayCardProps["onClick"] = (router) => {
+      const params = new URLSearchParams();
+      params.set("hotel", JSON.stringify(hotel));
+      params.set("room", JSON.stringify(room));
+      params.set("checkIn", searchParams?.checkInDate!)
+      params.set("checkOut", searchParams?.checkOutDate!)
+      params.set("bookingStatus", "booked")
+      router.push(`/book?${params.toString()}`);
+    };
+
     return (
-      <CustomCard
+      <DisplayCard
         key={index}
         rating={hotel.rating}
         title={`${hotel.hotelName}`}
@@ -87,11 +97,7 @@ export default function Page({
           room.extendable ? "extendable" : "not extendable"
         })`}
         img={thumbnailUrl}
-        hotel={hotel}
-        room={room}
-        checkInDate={searchParams?.checkInDate}
-        checkOutDate={searchParams?.checkOutDate}
-        bookingStatus={"booked"}
+        onClick={onCardClick}
       />
     );
   });
