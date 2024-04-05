@@ -40,10 +40,10 @@ export default async function Page(
     const hotelChains = await getHotelChains()
     const searchResults = await queryRooms(searchQuery)
 
-    const hotelCards = searchResults!.map((result, index) => {
-        const {room, hotel} = result;
-        const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
-        console.log(hotel.rating)
+  const hotelCards = searchResults!.map((result, index) => {
+    const { room, hotel } = result;
+    const thumbnailUrl = `${hostname}/thumbnail/hotel/${hotel.hotelId}`;
+    console.log(hotel.rating);
         return (
             <CustomCard
                 key={index}
