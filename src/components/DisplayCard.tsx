@@ -19,7 +19,7 @@ export default function DisplayCard(props: DisplayCardProps) {
 
   return (
     <Card
-      className="flex flex-col w-64 overflow-hidden hover:transform-gpu hover:scale-105 transition-transform cursor-pointer"
+      className="flex flex-col w-64 h-80 overflow-hidden hover:transform-gpu hover:scale-105 transition-transform cursor-pointer"
       onClick={() => props.onClick ? props.onClick(router) : undefined}
       styles={{
         body: {

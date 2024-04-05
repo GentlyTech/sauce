@@ -106,7 +106,7 @@ export default function Page({
         <Filters locations={locations} hotelChains={hotelChains} />
       </div>
       <div className="flex flex-col items-center my-5 w-full gap-2">
-        <div className="flex flex-row flex-wrap gap-2 overflow-y-auto w-full">
+        <div className="flex flex-row flex-wrap gap-2 overflow-y-auto w-full h-full">
           {hotelCards}
         </div>
         <Pagination
