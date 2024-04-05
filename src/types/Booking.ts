@@ -1,9 +1,9 @@
 interface Booking {
-    roomNumber: number
-    customerId?: number
-    hotelId: number
     bookingStatus?: string
-    checkInDate: string
-    checkOutDate: string
+    checkInDate?: string
+    checkOutDate?: string
+    customerId?: number
     damageFee?: number
+    hotelId?: number
+    roomNumber?: number
 }

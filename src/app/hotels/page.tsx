@@ -8,12 +8,9 @@ import {
 } from "@/lib/actions";
 import DisplayCard, { DisplayCardProps } from "@/components/DisplayCard";
 import { BaseOptionType } from "antd/es/select";
-import { hostname } from "@/lib/constants";
-import "./page.css";
+import { PAGE_SIZE, hostname } from "@/lib/constants";
 import { useEffect, useState } from "react";
 import { Pagination } from "antd";
-
-const PAGE_SIZE = 25;
 
 export default function Page({
   searchParams,
