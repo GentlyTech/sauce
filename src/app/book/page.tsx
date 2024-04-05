@@ -17,7 +17,7 @@ export default function Page({searchParams}: {
     const room = JSON.parse(searchParams?.room);
 
     return (
-        <div className={'overflow: auto'}>
+        <div className="px-2 overflow-y-auto">
             <h1>Reserve</h1>
             <p><b>Hotel Chain:</b> {hotel.owner}</p>
             <p><b>Address:</b></p>
